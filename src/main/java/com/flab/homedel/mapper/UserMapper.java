@@ -6,10 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
 
-    boolean isExistsId(String id); //
+    void insertUser(UserDto userDto);
 
-    void insertUser(UserDto userDto); //
+    boolean isExistsId(String id);
 
-    UserDto findById(String id); //
+    UserDto findById(String id);
 
 }

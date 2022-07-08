@@ -9,26 +9,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/users")
 @Slf4j
 public class UserController {
 
-    private final ResponseEntity REQUEST_OK = new ResponseEntity(HttpStatus.OK);
-    private final ResponseEntity REQUEST_CONFLICT = new ResponseEntity(HttpStatus.BAD_REQUEST);
-
     private final UserService userService;
 
-    // dto에 valid 추가하기
-    @PostMapping("/user/signup")
-    public ResponseEntity<Void> signup(@RequestBody UserDto userDto){
-//        log.info("signup : {}", userDto.getId()); // 로그에 무슨메시지를 넣어야좋을가??
-        userService.signup(userDto);
-        return REQUEST_OK;
+    @PostMapping("/signup")
+    public ResponseEntity<Void> createUser(@RequestBody @Valid UserDto userDto){
+        log.info("createUser Start");
+        userService.createUser(userDto);
+        log.info("createUser End");
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 
 
 }
